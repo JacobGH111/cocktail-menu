@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cocktail Menu</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+            --accent: #e0a96d;
+            --accent-active: #d4924b;
+            --toggle-bg: #2a2a2a;
+            --border-radius: 12px;
+            --padding-tablet: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            padding: var(--padding-tablet);
+            min-height: 100vh;
+        }
+
+        header {
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* Controls Section */
+        .controls-container {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .section-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+
+        /* Method Segmented Toggle */
+        .toggle-wrapper {
+            margin-bottom: 20px;
+        }
+
+        .segmented-control {
+            display: flex;
+            background-color: var(--toggle-bg);
+            border-radius: var(--border-radius);
+            padding: 4px;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            padding: 14px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: calc(var(--border-radius) - 2px);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-height: 48px; /* Touch target size */
+        }
+
+        .toggle-btn.active {
+            background-color: var(--accent);
+            color: var(--bg-color);
+        }
+
+        /* Liquor Tags Layout */
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .tag-btn {
+            background-color: var(--toggle-bg);
+            border: 2px solid transparent;
+            color: var(--text-primary);
+            padding: 12px 20px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-height: 48px; /* Touch target size */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tag-btn.active {
+            background-color: rgba(224, 169, 109, 0.15);
+            border-color: var(--accent);
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* Cards Grid Layout */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            padding-bottom: 40px;
+        }
+
+        .cocktail-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s ease;
+            border-top: 4px solid var(--toggle-bg);
+        }
+        
+        .cocktail-card.shaken {
+            border-top-color: #4a7c59;
+        }
+
+        .cocktail-card.stirred {
+            border-top-color: #68809a;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 14px;
+            gap: 8px;
+        }
+
+        .cocktail-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .method-badge {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-shaken {
+            background-color: rgba(74, 124, 89, 0.2);
+            color: #7ce09b;
+        }
+
+        .badge-stirred {
+            background-color: rgba(104, 128, 154, 0.2);
+            color: #9bc3e0;
+        }
+
+        .ingredients-list {
+            list-style-type: none;
+            margin-bottom: 16px;
+        }
+
+        .ingredients-list li {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+            padding-left: 12px;
+            position: relative;
+        }
+
+        .ingredients-list li::before {
+            content: "•";
+            color: var(--accent);
+            position: absolute;
+            left: 0;
+        }
+
+        .liquor-footer {
+            font-size: 0.85rem;
+            color: var(--accent);
+            background-color: rgba(224, 169, 109, 0.05);
+            padding: 6px 12px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 500;
+            margin-top: auto;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Craft Cocktail Menu</h1>
+    </header>
+
+    <div class="controls-container">
+        <div class="toggle-wrapper">
+            <div class="section-title" style="text-align: center;">Preparation Method</div>
+            <div class="segmented-control" id="methodToggle">
+                <button class="toggle-btn active" data-method="all">All</button>
+                <button class="toggle-btn" data-method="shaken">Shaken</button>
+                <button class="toggle-btn" data-method="stirred">Stirred</button>
+            </div>
+        </div>
+
+        <div>
+            <div class="section-title" style="text-align: center;">Base Spirits (Select Multiple)</div>
+            <div class="tags-container" id="liquorTags">
+                <!-- JavaScript will populate unique liquor tags here -->
+            </div>
+        </div>
+    </div>
+
+    <main class="menu-grid" id="cocktailGrid">
+        <!-- JavaScript will populate cocktail cards here -->
+    </main>
+
+    <script>
+        // Encoded JSON Dataset
+        const cocktailData = [
+            {
+                "name": "Old Fashioned",
+                "method": "stirred",
+                "liquor": "Bourbon",
+                "ingredients": ["2 oz Bourbon Whiskey", "3 dashes Angostura bitters", "1 Sugar cube", "Splash of warm water"]
+            },
+            {
+                "name": "Martini",
+                "method": "stirred",
+                "liquor": "Gin",
+                "ingredients": ["2 1/2 oz Gin", "1/2 oz Dry Vermouth", "Lemon peel or Olive"]
+            },
+            {
+                "name": "Margarita",
+                "method": "shaken",
+                "liquor": "Tequila",
+                "ingredients": ["2 oz Tequila Blanco", "1 oz Lime juice", "3/4 oz Cointreau"]
+            },
+            {
+                "name": "Daiquiri",
+                "method": "shaken",
+                "liquor": "Rum",
+                "ingredients": ["2 oz Light Rum", "1 oz Fresh Lime juice", "3/4 oz Simple syrup"]
+            },
+            {
+                "name": "Negroni",
+                "method": "stirred",
+                "liquor": "Gin",
+                "ingredients": ["1 oz Gin", "1 oz Campari", "1 oz Sweet Vermouth"]
+            },
+            {
+                "name": "Whiskey Sour",
+                "method": "shaken",
+                "liquor": "Bourbon",
+                "ingredients": ["2 oz Bourbon", "3/4 oz Fresh lemon juice", "3/4 oz Simple syrup", "1 Egg white (optional)"]
+            },
+            {
+                "name": "Manhattan",
+                "method": "stirred",
+                "liquor": "Rye",
+                "ingredients": ["2 oz Rye Whiskey", "1 oz Sweet Vermouth", "2 dashes Angostura bitters"]
+            },
+            {
+                "name": "Espresso Martini",
+                "method": "shaken",
+                "liquor": "Vodka",
+                "ingredients": ["2 oz Vodka", "1/2 oz Coffee liqueur", "1 oz Fresh espresso", "1/4 oz Simple syrup"]
+            }
+        ];
+
+        // State Tracking
+        let currentMethod = 'all';
+        const selectedLiquors = new Set();
+
+        // Elements
+        const methodToggle = document.getElementById('methodToggle');
+        const liquorTagsContainer = document.getElementById('liquorTags');
+        const cocktailGrid = document.getElementById('cocktailGrid');
+
+        // Initialize UI Components
+        function init() {
+            generateLiquorTags();
+            renderCards();
+            setupEventListeners();
+        }
+
+        // Dynamically parse dataset and create unique multi-select buttons
+        function generateLiquorTags() {
+            const uniqueLiquors = [...new Set(cocktailData.map(item => item.liquor))].sort();
+            
+            uniqueLiquors.forEach(liquor => {
+                const btn = document.createElement('button');
+                btn.className = 'tag-btn';
+                btn.textContent = liquor;
+                btn.setAttribute('data-liquor', liquor);
+                liquorTagsContainer.appendChild(btn);
+            });
+        }
+
+        // Render the filtered cards directly inside the Grid layout
+        function renderCards() {
+            cocktailGrid.innerHTML = '';
+            
+            const filteredCocktails = cocktailData.filter(cocktail => {
+                const matchesMethod = (currentMethod === 'all' || cocktail.method === currentMethod);
+                const matchesLiquor = (selectedLiquors.size === 0 || selectedLiquors.has(cocktail.liquor));
+                return matchesMethod && matchesLiquor;
+            });
+
+            if (filteredCocktails.length === 0) {
+                cocktailGrid.innerHTML = '<div class="empty-state">No cocktails match your selected filters.</div>';
+                return;
+            }
+
+            filteredCocktails.forEach(cocktail => {
+                const card = document.createElement('article');
+                card.className = `cocktail-card ${cocktail.method}`;
+                
+                const ingredientsHTML = cocktail.ingredients
+                    .map(ing => `<li>${ing}</li>`)
+                    .join('');
+
+                card.innerHTML = `
+                    <div>
+                        <div class="card-header">
+                            <h2 class="cocktail-name">${cocktail.name}</h2>
+                            <span class="method-badge badge-${cocktail.method}">${cocktail.method}</span>
+                        </div>
+                        <ul class="ingredients-list">
+                            ${ingredientsHTML}
+                        </ul>
+                    </div>
+                    <div class="liquor-footer">${cocktail.liquor}</div>
+                `;
+                cocktailGrid.appendChild(card);
+            });
+        }
+
+        // Setup touch-friendly event systems
+        function setupEventListeners() {
+            // Segmented toggle processing
+            methodToggle.addEventListener('click', (e) => {
+                const btn = e.target.closest('.toggle-btn');
+                if (!btn) return;
+
+                document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                currentMethod = btn.getAttribute('data-method');
+                renderCards();
+            });
+
+            // Multi-select dynamic tag processing
+            liquorTagsContainer.addEventListener('click', (e) => {
+                const btn = e.target.closest('.tag-btn');
+                if (!btn) return;
+
+                const liquor = btn.getAttribute('data-liquor');
+                
+                if (selectedLiquors.has(liquor)) {
+                    selectedLiquors.delete(liquor);
+                    btn.classList.remove('active');
+                } else {
+                    selectedLiquors.add(liquor);
+                    btn.classList.add('active');
+                }
+                
+                renderCards();
+            });
+        }
+
+        // Run application setup
+        init();
+    </script>
+</body>
+</html>
