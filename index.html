@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Cocktail Menu</title>
+    <title>Jacob's Cocktail Menu</title>
     <style>
         :root {
             --bg-color: #121212;
@@ -234,7 +234,7 @@
 <body>
 
     <header>
-        <h1>Craft Cocktail Menu</h1>
+        <h1>Chez Jacob Cocktail Menu</h1>
     </header>
 
     <div class="controls-container">
@@ -263,53 +263,145 @@
         // Encoded JSON Dataset
         const cocktailData = [
             {
+                "name": "Margartia",
+                "method": "shaken",
+                "liquor": "Tequila",
+                "ingredients": ["2 oz tequila", "1 oz triple sec", "1 oz lime juice"]
+            },
+            {
                 "name": "Old Fashioned",
                 "method": "stirred",
                 "liquor": "Bourbon",
-                "ingredients": ["2 oz Bourbon Whiskey", "3 dashes Angostura bitters", "1 Sugar cube", "Splash of warm water"]
+                "ingredients": ["2 oz bourbon", "1 oz simple syrup",  "angostura bitters", "luxardo cherry", "orange peel garnish"]
             },
             {
-                "name": "Martini",
-                "method": "stirred",
-                "liquor": "Gin",
-                "ingredients": ["2 1/2 oz Gin", "1/2 oz Dry Vermouth", "Lemon peel or Olive"]
-            },
-            {
-                "name": "Margarita",
-                "method": "shaken",
-                "liquor": "Tequila",
-                "ingredients": ["2 oz Tequila Blanco", "1 oz Lime juice", "3/4 oz Cointreau"]
-            },
-            {
-                "name": "Daiquiri",
+                "name": "Rum Daquiri",
                 "method": "shaken",
                 "liquor": "Rum",
-                "ingredients": ["2 oz Light Rum", "1 oz Fresh Lime juice", "3/4 oz Simple syrup"]
+                "ingredients": ["2 oz rum", "1 oz simple syrup", "1 oz lime juice"]
+            },
+            {
+                "name": "Sidecar",
+                "method": "shaken",
+                "liquor": "Cognac",
+                "ingredients": ["2 oz brandy", "1 oz triple sec", "1 oz lemon juice"]
             },
             {
                 "name": "Negroni",
                 "method": "stirred",
-                "liquor": "Gin",
-                "ingredients": ["1 oz Gin", "1 oz Campari", "1 oz Sweet Vermouth"]
+                "liquor": "Multiple"
+                "ingredients": ["1 oz campari", "1 oz sweet vermouth", "1 oz gin"]
             },
             {
-                "name": "Whiskey Sour",
-                "method": "shaken",
-                "liquor": "Bourbon",
-                "ingredients": ["2 oz Bourbon", "3/4 oz Fresh lemon juice", "3/4 oz Simple syrup", "1 Egg white (optional)"]
-            },
-            {
-                "name": "Manhattan",
+                "name": "White Russian",
                 "method": "stirred",
-                "liquor": "Rye",
-                "ingredients": ["2 oz Rye Whiskey", "1 oz Sweet Vermouth", "2 dashes Angostura bitters"]
+                "liquor": "Vodka",
+                "ingredients": ["2 oz vodka", "1 oz Kahlua", "1 oz heavy cream"]
             },
             {
-                "name": "Espresso Martini",
+                "name": "Black Russian",
+                "method": "stirred",
+                "liquor": "Vodka"
+                "ingredients": ["2 oz vodka", "1 oz kahlua"]
+            },
+            {
+                "name": "Limonvodka",
+                "method": "stirred"
+                "liquor": "Vodka",
+                "ingredients": ["2 oz limoncello", "1 oz vodka", "1 oz simple syrup"]
+            },
+            {
+                "name": "Mezcal Old Fashioned",
+                "method": "stirred",
+                "liquor": "Mezcal",
+                "ingredients": ["2 oz mezcal", "1 oz simple syrup",  "angostura bitters", "luxardo cherry", "orange peel garnish"]
+            },
+            {
+                "name": "Smokey Passionista",
+                "method": "shaken",
+                "liquor": "Multiple",
+                "ingredients": ["1 oz amaro", "1 oz passionfruit liqueur", "1/2 oz mezcal", "1/2 oz lime juice"]
+            },
+            {
+                "name": "Smokey Bee",
+                "method": "shaken",
+                "liquor": "Gin",
+                "ingredients": ["2 oz gin", "1/2 oz mezcal", "1/2 oz agave", "1/2 oz maple syrup", "1/2 oz lemon juice"]
+            },
+            {
+                "name": "Lemon Drop",
                 "method": "shaken",
                 "liquor": "Vodka",
-                "ingredients": ["2 oz Vodka", "1/2 oz Coffee liqueur", "1 oz Fresh espresso", "1/4 oz Simple syrup"]
+                "ingredients": ["2 oz gin/vodka", "1 oz simple syrup", "1 oz lemon juice"]
+            },
+            {
+                "name": "Pisco Sour",
+                "method": "shaken",
+                "liquor": "Pisco",
+                "ingredients": ["2 oz pisco", "1 oz lime juice", "1 oz simple syrup", "1 egg white"]
+            },
+            {
+                "name": "Heller Hat Trick",
+                "method": "shaken",
+                "liquor": "Vodka",
+                "ingredients": ["2 oz vodka", "2 oz St. Germain", "1 oz lemon juice", "splash lychee juice", "lychee garnish"]
+            },
+            {
+                "name": "It's Summer Somewhere",
+                "method": "stirred",
+                "liquor": "Vodka",
+                "ingredients": ["2 oz gin/vodka", "2 oz triple sec", "1 oz strawberry syrup", "candied strawberry garnish"]
+            },
+            {
+                "name": "Honeymusk",
+                "method": "shaken",
+                "liquor": "Rum",
+                "ingredients": ["1 oz rum", "1 oz lemon juice", "1 oz pineapple juice", "1/2 oz cynar"]
+            },
+            {
+                "name": "Butter Me Up!",
+                "method": "stirred",
+                "liquor": "Bourbon",
+                "ingredients": ["2 oz brown butter bourbon"]
+            },
+            {
+                "name": "Smoke Show",
+                "method": "shaken",
+                "liquor": "Mezcal",
+                "ingredients": ["2 oz mezcal", "1/2 oz green chartreuse", "1/2 oz cynar", "1 oz simple syrup", "1 egg white"]
+            },
+            {
+                "name": "The Last Word",
+                "method": "shaken",
+                "liquor": "Gin",
+                "ingredients": ["1 oz gin", "1 oz green chartreuse", "1.5 oz maraschino liqueur", "1 oz lime juice"]
+            },
+            {
+                "name": "Matcha Matcha Man",
+                "method": "shaken",
+                "liquor": "Gin",
+                "ingredients": ["1/4 tsp matcha powder", "1 tbsp water", "2 oz gin", "1 oz simple syrup", "1 oz lemon juice", "froth matcha in water before mixing other ingredients"
+            },
+            {
+                "name": "Blood Orange Margarita",
+                "method": "shaken",
+                "liquor": "Tequila",
+                "ingredients": ["2 oz Tequila", "1/2 oz triple sec", "1 oz lime juice", "1 oz blood orange juice", "splash of agave"]
+
+            },
+            {
+                "name": "The Brown Derby",
+                "method": "Shaken",
+                "liquor": "Bourbon",
+                "ingredients": ["2 oz bourbon", "1 oz grapefruit juice", "1/2 oz honey syrup", "dried grapefruit slice garnish"]
+            },
+            {
+                "name": "Peach Perfect",
+                "method": "shaken",
+                "liquor": "Bourbon",
+                "ingredients": ["2 oz bourbon", "1 oz licor 43", "1 oz lemon juice", "1 oz peach juice", "1 egg white", "peach bitters"]
             }
+
         ];
 
         // State Tracking
